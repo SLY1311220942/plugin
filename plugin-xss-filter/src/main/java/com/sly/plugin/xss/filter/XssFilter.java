@@ -52,7 +52,6 @@ public class XssFilter implements Filter {
 		String uri = httpServletRequest.getRequestURI();
 		String contextPath = httpServletRequest.getContextPath();
 		String requestPath = uri.replaceFirst(contextPath, "").replaceFirst("/+", "/");
-		
 		if (isExcludePath(requestPath)) {
 			chain.doFilter(request, response);// 放行
 		}else {

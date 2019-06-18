@@ -10,8 +10,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "plugin.xss-filter")
 public class XssFilterProperties {
-	private Filter filter;
-	private Exclude exclude;
+	private Filter filter = new Filter();
+	private Exclude exclude = new Exclude();
 
 	public Filter getFilter() {
 		return filter;
@@ -29,7 +29,7 @@ public class XssFilterProperties {
 		this.exclude = exclude;
 	}
 
-	public class Filter {
+	public static class Filter {
 		/** 需要过滤的字符 */
 		private String[] sqlstr = { "'", "exec", "execute", "insert", "delete", "update", "drop", "\\%", "master",
 				"truncate", "declare", "sitename", "xp_cmdshell", "create", "table", "grant", "group_concat", "column",
@@ -58,9 +58,9 @@ public class XssFilterProperties {
 
 	}
 
-	public class Exclude {
+	public static class Exclude {
 		/** 排除路径 */
-		private String[] excludePath;
+		private String[] excludePath = {};
 
 		public String[] getExcludePath() {
 			return excludePath;
