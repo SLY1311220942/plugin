@@ -7,6 +7,8 @@ import com.sly.plugin.common.constant.ResultStatus;
 import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
 import com.sly.plugin.validate.constraints.NotBlank;
+import com.sly.plugin.validate.constraints.NotNull;
+import com.sly.plugin.validate.constraints.Size;
 
 /**
  * 对象注解解析类
@@ -35,9 +37,21 @@ public class ValidResolve {
 			Annotation[] annotations = field.getAnnotations();
 			Object fieldValue = field.get(object);
 			for (int i = 0; i < annotations.length; i++) {
-				// NotBlank验证
-				if(annotations[i] instanceof NotBlank) {
+				if((annotations[i] instanceof NotBlank) && ((NotBlank)annotations[i]).group().equals(group)) {
+					// NotBlank验证
 					BaseResult resolveResult = NotBlankResolve.resolve(fieldValue, field.getType(),annotations[i]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if((annotations[i] instanceof NotNull) && ((NotNull)annotations[i]).group().equals(group)) {
+					// NotNull验证
+					BaseResult resolveResult = NotNullResolve.resolve(fieldValue, field.getType(),annotations[i]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if((annotations[i] instanceof Size) && ((Size)annotations[i]).group().equals(group)) {
+					// Size验证
+					BaseResult resolveResult = SizeResolve.resolve(fieldValue, field.getType(),annotations[i]);
 					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
 						return resolveResult;
 					}

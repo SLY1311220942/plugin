@@ -19,7 +19,11 @@ import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
 import com.sly.plugin.validate.annotation.Valid;
 import com.sly.plugin.validate.constraints.NotBlank;
+import com.sly.plugin.validate.constraints.NotNull;
+import com.sly.plugin.validate.constraints.Size;
 import com.sly.plugin.validate.resolve.NotBlankResolve;
+import com.sly.plugin.validate.resolve.NotNullResolve;
+import com.sly.plugin.validate.resolve.SizeResolve;
 import com.sly.plugin.validate.resolve.ValidResolve;
 
 /**
@@ -69,6 +73,18 @@ public class ValidateAspect {
 					// NotBlank验证
 					BaseResult resolveResult = NotBlankResolve.resolve(parameterValue, type, annotations[j]);
 					if (resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if(annotations[j] instanceof NotNull) {
+					// NotNull验证
+					BaseResult resolveResult = NotNullResolve.resolve(parameterValue, type, annotations[j]);
+					if (resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if(annotations[j] instanceof Size) {
+					// Size验证
+					BaseResult resolveResult = SizeResolve.resolve(parameterValue, type, annotations[j]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
 						return resolveResult;
 					}
 				}
