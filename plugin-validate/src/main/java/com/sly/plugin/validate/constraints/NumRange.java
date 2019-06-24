@@ -54,7 +54,22 @@ public @interface NumRange {
 	 * @time 2019年6月20日
 	 */
 	double max() default Double.MAX_VALUE;
-
+	
+	/**
+	 * 区间闭合性
+	 * <p>
+	 * 	默认：[]</br>
+	 * 	()</br>
+	 *  [)</br>
+	 *  (]</br>
+	 *  []</br>
+	 * </p>
+	 * @return
+	 * @author sly
+	 * @time 2019年6月24日
+	 */
+	String interval() default "[]";
+	
 	/**
 	 * message
 	 * 
