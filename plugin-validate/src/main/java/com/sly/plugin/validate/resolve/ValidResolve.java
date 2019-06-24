@@ -55,6 +55,12 @@ public class ValidResolve {
 					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
 						return resolveResult;
 					}
+				} else if((annotations[i] instanceof Size) && ((Size)annotations[i]).group().equals(group)) {
+					// NumRange验证
+					BaseResult resolveResult = NumRangeResolve.resolve(fieldValue, field.getType(),annotations[i]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
 				}
 			}
 		}

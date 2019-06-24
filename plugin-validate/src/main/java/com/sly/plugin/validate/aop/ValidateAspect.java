@@ -20,6 +20,7 @@ import com.sly.plugin.common.result.BaseResult;
 import com.sly.plugin.validate.annotation.Valid;
 import com.sly.plugin.validate.constraints.NotBlank;
 import com.sly.plugin.validate.constraints.NotNull;
+import com.sly.plugin.validate.constraints.NumRange;
 import com.sly.plugin.validate.constraints.Size;
 import com.sly.plugin.validate.resolve.NotBlankResolve;
 import com.sly.plugin.validate.resolve.NotNullResolve;
@@ -83,6 +84,12 @@ public class ValidateAspect {
 					}
 				} else if(annotations[j] instanceof Size) {
 					// Size验证
+					BaseResult resolveResult = SizeResolve.resolve(parameterValue, type, annotations[j]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if(annotations[j] instanceof NumRange) {
+					// NumRange验证
 					BaseResult resolveResult = SizeResolve.resolve(parameterValue, type, annotations[j]);
 					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
 						return resolveResult;
