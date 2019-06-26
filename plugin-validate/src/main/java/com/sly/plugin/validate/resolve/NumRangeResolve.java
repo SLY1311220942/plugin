@@ -46,7 +46,6 @@ public class NumRangeResolve {
 			BigDecimal min = new BigDecimal(annotation.min() + "");
 			BigDecimal max = new BigDecimal(annotation.max() + "");
 			
-			System.out.println(value + ":" + min + ":" + max);
 			if (Interval.OPEN_OPEN.equals(interval) || Interval.OPEN_CLOSE.equals(interval)) {
 				if (value.compareTo(min) == 1) {
 					// 大于最小值
