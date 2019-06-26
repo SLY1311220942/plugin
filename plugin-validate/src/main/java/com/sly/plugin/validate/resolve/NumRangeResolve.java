@@ -8,6 +8,7 @@ import java.util.List;
 import com.sly.plugin.common.constant.ResultStatus;
 import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.validate.constant.Interval;
 import com.sly.plugin.validate.constraints.NumRange;
 
 /**
@@ -17,14 +18,6 @@ import com.sly.plugin.validate.constraints.NumRange;
  * @time 2019年6月24日
  */
 public class NumRangeResolve {
-	/** 开区间 */
-	private static final String OPEN_OPEN = "()";
-	/** 前开后闭区间 */
-	private static final String OPEN_CLOSE = "(]";
-	/** 前闭后开区间 */
-	private static final String CLOSE_OPEN = "[)";
-	/** 闭区间 */
-	private static final String CLOSE_CLOSE = "[]";
 
 	/**
 	 * 解析NumRange注解参数是否合规
@@ -37,41 +30,45 @@ public class NumRangeResolve {
 	 * @time 2019年6月24日
 	 */
 	public static BaseResult resolve(Object parameterValue, Class<?> type, Annotation annotations) {
-		List<String> intervals = Arrays.asList(OPEN_OPEN, OPEN_CLOSE, CLOSE_OPEN, CLOSE_CLOSE);
+		List<Interval> intervals = Arrays.asList(Interval.OPEN_OPEN, Interval.OPEN_CLOSE, Interval.CLOSE_OPEN, Interval.CLOSE_CLOSE);
 		NumRange annotation = (NumRange) annotations;
-		String interval = annotation.interval();
+		Interval interval = annotation.interval();
 		if (!intervals.contains(interval)) {
-			throw new RuntimeException("不支持区间类型异常：@NumRange注解区间只支持“()”、“(]”、“[)”和“[]”");
+			throw new RuntimeException("不支持区间类型异常：@NumRange注解区间只支持“OPEN_OPEN”、“OPEN_CLOSE”、“CLOSE_OPEN”和“CLOSE_CLOSE”");
 		}
-
-		if (parameterValue instanceof Number) {
+		
+		
+		if(parameterValue == null) {
+			// 空值默认验证失败
+			return new BaseResult(ResultStatus.FAILED, annotation.message());
+		} else if (parameterValue instanceof Number) {
 			BigDecimal value = new BigDecimal(parameterValue + "");
 			BigDecimal min = new BigDecimal(annotation.min() + "");
 			BigDecimal max = new BigDecimal(annotation.max() + "");
-			if (OPEN_OPEN.equals(interval) || OPEN_CLOSE.equals(interval)) {
+			if (Interval.OPEN_OPEN.equals(interval) || Interval.OPEN_CLOSE.equals(interval)) {
 				if (value.compareTo(min) == 1) {
 					// 大于最小值
-					if (OPEN_OPEN.equals(interval)) {
+					if (Interval.OPEN_OPEN.equals(interval)) {
 						if (!(value.compareTo(max) == -1 || value.compareTo(max) == 0)) {
 							// 右侧开区间 大于等于最大值
 							return new BaseResult(ResultStatus.FAILED, annotation.message());
 						}
-					} else if (OPEN_CLOSE.equals(interval)) {
+					} else if (Interval.OPEN_CLOSE.equals(interval)) {
 						if (!(value.compareTo(max) == -1)) {
 							// 右侧闭区间 大于最大值
 							return new BaseResult(ResultStatus.FAILED, annotation.message());
 						}
 					}
 				}
-			} else if (CLOSE_OPEN.equals(interval) || CLOSE_CLOSE.equals(interval)) {
+			} else if (Interval.CLOSE_OPEN.equals(interval) || Interval.CLOSE_CLOSE.equals(interval)) {
 				if (value.compareTo(max) == 1 || value.compareTo(max) == 0) {
 					// 大于等于最小值
-					if (CLOSE_OPEN.equals(interval)) {
+					if (Interval.CLOSE_OPEN.equals(interval)) {
 						if (!(value.compareTo(max) == -1 || value.compareTo(max) == 0)) {
 							// 右侧开区间 大于等于最大值
 							return new BaseResult(ResultStatus.FAILED, annotation.message());
 						}
-					} else if (CLOSE_CLOSE.equals(interval)) {
+					} else if (Interval.CLOSE_CLOSE.equals(interval)) {
 						if (!(value.compareTo(max) == -1)) {
 							// 右侧闭区间 大于最大值
 							return new BaseResult(ResultStatus.FAILED, annotation.message());

@@ -16,7 +16,8 @@ import com.sly.plugin.validate.aop.ValidateAspect;
 public class ValidateConfig implements WebMvcConfigurer{
 	
 	@Bean
-	public ValidateAspect getAntiDuplicateCommitAspect() {
+	public ValidateAspect getValidateAspectAspect() {
+		System.out.println("初始化参数验证插件...");
 		ValidateAspect validateAspect = new ValidateAspect();
 		return validateAspect;
 	}

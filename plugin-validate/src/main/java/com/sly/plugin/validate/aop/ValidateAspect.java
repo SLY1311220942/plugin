@@ -18,13 +18,25 @@ import com.sly.plugin.common.constant.ResultStatus;
 import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
 import com.sly.plugin.validate.annotation.Valid;
+import com.sly.plugin.validate.constraints.Email;
 import com.sly.plugin.validate.constraints.NotBlank;
 import com.sly.plugin.validate.constraints.NotNull;
+import com.sly.plugin.validate.constraints.Null;
 import com.sly.plugin.validate.constraints.NumRange;
+import com.sly.plugin.validate.constraints.Phone;
+import com.sly.plugin.validate.constraints.PhoneOrTel;
+import com.sly.plugin.validate.constraints.Regex;
 import com.sly.plugin.validate.constraints.Size;
+import com.sly.plugin.validate.constraints.Tel;
+import com.sly.plugin.validate.resolve.EmailResolve;
 import com.sly.plugin.validate.resolve.NotBlankResolve;
 import com.sly.plugin.validate.resolve.NotNullResolve;
+import com.sly.plugin.validate.resolve.NullResolve;
+import com.sly.plugin.validate.resolve.PhoneOrTelResolve;
+import com.sly.plugin.validate.resolve.PhoneResolve;
+import com.sly.plugin.validate.resolve.RegexResolve;
 import com.sly.plugin.validate.resolve.SizeResolve;
+import com.sly.plugin.validate.resolve.TelResolve;
 import com.sly.plugin.validate.resolve.ValidResolve;
 
 /**
@@ -82,6 +94,12 @@ public class ValidateAspect {
 					if (resolveResult.getStatus() != ResultStatus.SUCCESS) {
 						return resolveResult;
 					}
+				} else if(annotations[j] instanceof Null) {
+					// Null验证
+					BaseResult resolveResult = NullResolve.resolve(parameterValue, type, annotations[j]);
+					if (resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
 				} else if(annotations[j] instanceof Size) {
 					// Size验证
 					BaseResult resolveResult = SizeResolve.resolve(parameterValue, type, annotations[j]);
@@ -91,6 +109,36 @@ public class ValidateAspect {
 				} else if(annotations[j] instanceof NumRange) {
 					// NumRange验证
 					BaseResult resolveResult = SizeResolve.resolve(parameterValue, type, annotations[j]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if(annotations[j] instanceof Regex) {
+					// Regex验证
+					BaseResult resolveResult = RegexResolve.resolve(parameterValue, type, annotations[j]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if(annotations[j] instanceof Phone) {
+					// Phone验证
+					BaseResult resolveResult = PhoneResolve.resolve(parameterValue, type, annotations[j]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if(annotations[j] instanceof Tel) {
+					// Tel验证
+					BaseResult resolveResult = TelResolve.resolve(parameterValue, type, annotations[j]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if(annotations[j] instanceof PhoneOrTel) {
+					// PhoneOrTel验证
+					BaseResult resolveResult = PhoneOrTelResolve.resolve(parameterValue, type, annotations[j]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if(annotations[j] instanceof Email) {
+					// Email验证
+					BaseResult resolveResult = EmailResolve.resolve(parameterValue, type, annotations[j]);
 					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
 						return resolveResult;
 					}

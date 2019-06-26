@@ -10,6 +10,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import com.sly.plugin.validate.constant.Constant;
+import com.sly.plugin.validate.constant.Interval;
 import com.sly.plugin.validate.constraints.NumRange.List;
 
 /**
@@ -68,7 +69,7 @@ public @interface NumRange {
 	 * @author sly
 	 * @time 2019年6月24日
 	 */
-	String interval() default "[]";
+	Interval interval() default Interval.CLOSE_CLOSE;
 	
 	/**
 	 * message

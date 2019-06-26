@@ -6,9 +6,15 @@ import java.lang.reflect.Field;
 import com.sly.plugin.common.constant.ResultStatus;
 import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.validate.constraints.Email;
 import com.sly.plugin.validate.constraints.NotBlank;
 import com.sly.plugin.validate.constraints.NotNull;
+import com.sly.plugin.validate.constraints.Null;
+import com.sly.plugin.validate.constraints.Phone;
+import com.sly.plugin.validate.constraints.PhoneOrTel;
+import com.sly.plugin.validate.constraints.Regex;
 import com.sly.plugin.validate.constraints.Size;
+import com.sly.plugin.validate.constraints.Tel;
 
 /**
  * 对象注解解析类
@@ -49,6 +55,12 @@ public class ValidResolve {
 					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
 						return resolveResult;
 					}
+				} else if((annotations[i] instanceof Null) && ((Null)annotations[i]).group().equals(group)) {
+					// Null验证
+					BaseResult resolveResult = NullResolve.resolve(fieldValue, field.getType(),annotations[i]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
 				} else if((annotations[i] instanceof Size) && ((Size)annotations[i]).group().equals(group)) {
 					// Size验证
 					BaseResult resolveResult = SizeResolve.resolve(fieldValue, field.getType(),annotations[i]);
@@ -58,6 +70,36 @@ public class ValidResolve {
 				} else if((annotations[i] instanceof Size) && ((Size)annotations[i]).group().equals(group)) {
 					// NumRange验证
 					BaseResult resolveResult = NumRangeResolve.resolve(fieldValue, field.getType(),annotations[i]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if((annotations[i] instanceof Regex) && ((Regex)annotations[i]).group().equals(group)) {
+					// Regex验证
+					BaseResult resolveResult = RegexResolve.resolve(fieldValue, field.getType(),annotations[i]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if((annotations[i] instanceof Phone) && ((Phone)annotations[i]).group().equals(group)) {
+					// Phone验证
+					BaseResult resolveResult = PhoneResolve.resolve(fieldValue, field.getType(),annotations[i]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if((annotations[i] instanceof Tel) && ((Tel)annotations[i]).group().equals(group)) {
+					// Tel验证
+					BaseResult resolveResult = TelResolve.resolve(fieldValue, field.getType(),annotations[i]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if((annotations[i] instanceof PhoneOrTel) && ((PhoneOrTel)annotations[i]).group().equals(group)) {
+					// PhoneOrTel验证
+					BaseResult resolveResult = PhoneOrTelResolve.resolve(fieldValue, field.getType(),annotations[i]);
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+						return resolveResult;
+					}
+				} else if((annotations[i] instanceof Email) && ((Email)annotations[i]).group().equals(group)) {
+					// Email验证
+					BaseResult resolveResult = EmailResolve.resolve(fieldValue, field.getType(),annotations[i]);
 					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
 						return resolveResult;
 					}

@@ -28,10 +28,13 @@ public class NotBlankResolve {
 	 * @time 2019年6月20日
 	 */
 	public static BaseResult resolve(Object parameterValue, Class<?> type, Annotation annotations) {
-		if (!(parameterValue instanceof String)) {
+		NotBlank annotation = (NotBlank) annotations;
+		if(parameterValue == null) {
+			return new BaseResult(ResultStatus.FAILED, annotation.message());
+		} else if (!(parameterValue instanceof String)) {
 			throw new RuntimeException("不支持类型异常：@NotBlank注解只支持String类型的参数和字段");
 		}
-		NotBlank annotation = (NotBlank) annotations;
+		
 		if (StringUtils.isBlank((String) parameterValue)) {
 			return new BaseResult(ResultStatus.FAILED, annotation.message());
 		}

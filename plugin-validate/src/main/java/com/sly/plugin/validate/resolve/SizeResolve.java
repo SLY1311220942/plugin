@@ -29,14 +29,17 @@ public class SizeResolve {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static BaseResult resolve(Object parameterValue, Class<?> type, Annotation annotations) {
-		if (!(parameterValue instanceof String) && !(parameterValue instanceof Collection)
+		long size = 0;
+		if(parameterValue == null) {
+			size = 0;
+		}else if (!(parameterValue instanceof String) && !(parameterValue instanceof Collection)
 				&& !(parameterValue instanceof Map) && !(parameterValue.getClass().isArray())) {
 			throw new RuntimeException("不支持类型异常：@Size注解只支持String、Collection、Map、和Array类型的参数和字段");
 		}
 		Size annotation = (Size) annotations;
 		long min = annotation.min();
 		long max = annotation.max();
-		long size = 0;
+		
 		if (parameterValue != null) {
 			if(parameterValue instanceof String) {
 				size = ((String) parameterValue).length();
