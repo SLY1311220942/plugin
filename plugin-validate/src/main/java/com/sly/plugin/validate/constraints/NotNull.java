@@ -38,7 +38,7 @@ public @interface NotNull {
 	 * @author sly
 	 * @time 2019年6月18日
 	 */
-	String group() default Constant.DEFAULT_GROUP;
+	String[] group() default { Constant.DEFAULT_GROUP };
 
 	/**
 	 * 

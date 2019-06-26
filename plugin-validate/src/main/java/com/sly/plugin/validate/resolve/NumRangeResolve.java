@@ -45,35 +45,41 @@ public class NumRangeResolve {
 			BigDecimal value = new BigDecimal(parameterValue + "");
 			BigDecimal min = new BigDecimal(annotation.min() + "");
 			BigDecimal max = new BigDecimal(annotation.max() + "");
+			
+			System.out.println(value + ":" + min + ":" + max);
 			if (Interval.OPEN_OPEN.equals(interval) || Interval.OPEN_CLOSE.equals(interval)) {
 				if (value.compareTo(min) == 1) {
 					// 大于最小值
 					if (Interval.OPEN_OPEN.equals(interval)) {
-						if (!(value.compareTo(max) == -1 || value.compareTo(max) == 0)) {
+						if (value.compareTo(max) == 1 || value.compareTo(max) == 0) {
 							// 右侧开区间 大于等于最大值
 							return new BaseResult(ResultStatus.FAILED, annotation.message());
 						}
 					} else if (Interval.OPEN_CLOSE.equals(interval)) {
-						if (!(value.compareTo(max) == -1)) {
+						if (value.compareTo(max) == 1) {
 							// 右侧闭区间 大于最大值
 							return new BaseResult(ResultStatus.FAILED, annotation.message());
 						}
 					}
+				} else {
+					return new BaseResult(ResultStatus.FAILED, annotation.message());
 				}
 			} else if (Interval.CLOSE_OPEN.equals(interval) || Interval.CLOSE_CLOSE.equals(interval)) {
-				if (value.compareTo(max) == 1 || value.compareTo(max) == 0) {
+				if (value.compareTo(min) == 1 || value.compareTo(min) == 0) {
 					// 大于等于最小值
 					if (Interval.CLOSE_OPEN.equals(interval)) {
-						if (!(value.compareTo(max) == -1 || value.compareTo(max) == 0)) {
+						if (value.compareTo(max) == 1 || value.compareTo(max) == 0) {
 							// 右侧开区间 大于等于最大值
 							return new BaseResult(ResultStatus.FAILED, annotation.message());
 						}
 					} else if (Interval.CLOSE_CLOSE.equals(interval)) {
-						if (!(value.compareTo(max) == -1)) {
+						if (value.compareTo(max) == 1) {
 							// 右侧闭区间 大于最大值
 							return new BaseResult(ResultStatus.FAILED, annotation.message());
 						}
 					}
+				} else {
+					return new BaseResult(ResultStatus.FAILED, annotation.message());
 				}
 			}
 

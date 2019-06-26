@@ -29,7 +29,7 @@ public class TelResolve {
 	public static BaseResult resolve(Object parameterValue, Class<?> type, Annotation annotations) {
 		Tel annotation = (Tel) annotations;
 		if (parameterValue != null) {
-			if (parameterValue instanceof String) {
+			if (!(parameterValue instanceof String)) {
 				throw new RuntimeException("不支持类型异常：@Tel注解只支持String类型的参数和字段");
 			}
 			if (!((String) parameterValue).matches(CommonRegex.TEL_REGEX)) {

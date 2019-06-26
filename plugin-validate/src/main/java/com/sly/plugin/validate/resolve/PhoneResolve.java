@@ -29,7 +29,7 @@ public class PhoneResolve {
 	public static BaseResult resolve(Object parameterValue, Class<?> type, Annotation annotations) {
 		Phone annotation = (Phone) annotations;
 		if(parameterValue != null) {
-			if(parameterValue instanceof String) {
+			if(!(parameterValue instanceof String)) {
 				throw new RuntimeException("不支持类型异常：@Phone注解只支持String类型的参数和字段");
 			}
 			if(!((String)parameterValue).matches(CommonRegex.PHONE_REGEX)) {

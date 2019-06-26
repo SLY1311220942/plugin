@@ -51,7 +51,7 @@ public @interface Regex {
 	 * @author sly
 	 * @time 2019年6月26日
 	 */
-	String group() default Constant.DEFAULT_GROUP;
+	String[] group() default { Constant.DEFAULT_GROUP };
 
 	/**
 	 * 
