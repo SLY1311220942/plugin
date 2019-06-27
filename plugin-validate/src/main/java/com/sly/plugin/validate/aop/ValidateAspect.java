@@ -78,7 +78,7 @@ public class ValidateAspect {
 				if (annotations[j] instanceof Valid) {
 					// Valid验证对象
 					Valid valid = (Valid) annotations[j];
-					BaseResult resolveResult = ValidResolve.resolve(parameterValue, type, valid.group());
+					BaseResult resolveResult = ValidResolve.resolve(parameterValue, type, valid.value());
 					if (resolveResult.getStatus() != ResultStatus.SUCCESS) {
 						return resolveResult;
 					}

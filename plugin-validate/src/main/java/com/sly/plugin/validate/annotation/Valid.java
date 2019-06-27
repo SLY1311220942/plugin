@@ -19,12 +19,14 @@ import com.sly.plugin.validate.constant.Constant;
 @Retention(RUNTIME)
 @Documented
 public @interface Valid {
+
 	/**
 	 * 验证分组
 	 * 
 	 * @return
 	 * @author sly
-	 * @time 2019年6月18日
+	 * @time 2019年6月27日
 	 */
-	String group() default Constant.DEFAULT_GROUP;
+	String value() default Constant.DEFAULT_GROUP;
+
 }
