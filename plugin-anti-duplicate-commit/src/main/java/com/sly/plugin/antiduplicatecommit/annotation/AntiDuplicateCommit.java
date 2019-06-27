@@ -30,7 +30,7 @@ public @interface AntiDuplicateCommit {
 	 * @author sly
 	 * @time 2019年5月15日
 	 */
-	boolean isReturnToken();
+	boolean isReturnToken() default true;
 
 	/**
 	 * 是否验证token
@@ -39,5 +39,5 @@ public @interface AntiDuplicateCommit {
 	 * @author sly
 	 * @time 2019年5月15日
 	 */
-	boolean isCheckToken();
+	boolean isCheckToken() default true;
 }

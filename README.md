@@ -43,16 +43,135 @@ plugin-anti-duplicate-commit
 
 该工程依赖了plugin-common，这个工程主要是为了防止重复提交。
 
+配置反重复提交插件
+
+```yml
+plugin:
+  anti-duplicate-commit: 
+    message: 页面超时请刷新重试!
+```
+
+开启反重复提交插件
+
+```java
+/**
+ * 项目启动类
+ * @author sly
+ * @time 2019年5月16日
+ */
+@SpringBootApplication
+@EnableAntiDuplicateCommit
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+```
+
+使用反重复提交插件：@AntiDuplicateCommit(keys = { DemoToken.DEMO_ADD_TOKEN }, isCheckToken = false, isReturnToken = true)
+> keys：token的key,可以是多个。  
+> isCheckToken：是否验证token，默认true。  
+> isReturnToken：是否向页面或返回对象中返回新的token，默认true。  
+
+```java
+@RequestMapping("/toAdd")
+@AntiDuplicateCommit(keys = { DemoToken.DEMO_ADD_TOKEN }, isCheckToken = false, isReturnToken = true)
+public String toAdd(HttpServletRequest request, HttpServletResponse response) {
+	return "/pages/add.html";
+}
+
+@ResponseBody
+@RequestMapping("/demoAddSubmit")
+@AntiDuplicateCommit(keys = { DemoToken.DEMO_ADD_TOKEN }, isCheckToken = true, isReturnToken = false)
+public Object demoAddSubmit(HttpServletRequest request, HttpServletResponse response) {
+	Map<String, Object> result = new HashMap<>(16);
+	try {
+		System.out.println("我是新增业务方法,我执行了!");
+		result.put("status", 200);
+		result.put("message", "新增成功!");
+	} catch (Exception e) {
+		LOGGER.error(ExceptionUtils.getStackTrace(e));
+		result.put("status", 400);
+		result.put("message", "新增失败!");
+	}
+	return result;
+}
+```
+
 
 ## 3.xss过滤器
 plugin-xss-filter
 
 该工程是为了防止xss攻击，对请求数据做了过滤。
 
-## 4.参数验证
+配置xss过滤器：
+
+```yml
+plugin:
+  xss-filter:
+    exclude:
+      exclude-path: /demo/demoUpdateSubmit	
+```
+
+开启xss过滤器@EnableXssFilter
+
+```java
+/**
+ * 项目启动类
+ * @author sly
+ * @time 2019年5月16日
+ */
+@SpringBootApplication
+@EnableXssFilter
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+```
+
+默认过滤字符配置如下,如果需要修改自行在配置文件中配置：
+
+```java
+/** 需要过滤的字符 */
+private String[] sqlstr = { "'", "exec", "execute", "insert", "delete", "update", "drop", "\\%", "master",
+		"truncate", "declare", "sitename", "xp_cmdshell", "create", "table", "grant", "group_concat", "column",
+		"schema", "union", ";--", "<", ">", "\\(", "\\)", "eval\\((.*)\\)" };
+
+/** 过滤后的字符 */
+private String[] nsqlstr = { "＇", "ｅｘｅｃ", "ｅｘｅｃｕｔｅ", "ｉｎｓｅｒｔ", "ｄｅｌｅｔｅ", "ｕｐｄａｔｅ", "ｄｒｏｐ", "％", "ｍａｓｔｅｒ",
+		"ｔｒｕｎｃａｔｅ", "ｄｅｃｌａｒｅ", "ｓｉｔｅｎａｍｅ", "ｘｐ＿ｃｍｄｓｈｅｌｌ", "ｃｒｅａｔｅ", "ｔａｂｌｅ", "ｇｒａｎｔ", "ｇｒｏｕｐ＿ｃｏｎｃａｔ", "ｃｏｌｕｍｎ",
+		"ｓｃｈｅｍａ", "ｕｎｉｏｎ", "；－－", "＜", "＞", "（", "）", "ｅｖａｌ＼＼（（．＊）＼＼）" };
+```
+
+
+## 4.参数验证插件
 plugin-validate
 
 该工程是为了简化对请求参数的验证，该工程依赖了plugin-common。
+
+开启参数验证@EnableValidate
+
+```java
+/**
+ * 项目启动类
+ * @author sly
+ * @time 2019年5月16日
+ */
+@SpringBootApplication
+@EnableValidate
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+```
 
 ```java
 import java.io.Serializable;
@@ -189,6 +308,6 @@ public Object demoDeleteSubmit(HttpServletRequest request, HttpServletResponse r
 }
 ```
 
-## 5.敏感词验证
+## 5.敏感词验证插件
 
 开发中...
