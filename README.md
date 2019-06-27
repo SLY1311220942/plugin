@@ -188,3 +188,7 @@ public Object demoDeleteSubmit(HttpServletRequest request, HttpServletResponse r
 	return result;
 }
 ```
+
+## 5.敏感词验证
+
+开发中...
