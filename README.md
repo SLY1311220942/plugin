@@ -369,8 +369,6 @@ public Object demoSensitiveWord(HttpServletRequest request, HttpServletResponse 
 2.其它方式配置敏感词词库  
 保持上面的操作不变，不需要配置敏感词文件位置了，需要自己写监听器在项目启动后设置敏感词。因为这种方式词库的来源可能是数据库之类的地方，必须项目启动后查询才有值。也可以利用下面的方法重置词库。
 
-List<String> keyWordList
-
 ```java
 SensitiveWordInit sensitiveWordInit = new SensitiveWordInit();
 sensitivewordFilter.sensitiveWordMap = sensitiveWordInit.initKeyWord(keyWordList);
