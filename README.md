@@ -372,6 +372,7 @@ public Object demoSensitiveWord(HttpServletRequest request, HttpServletResponse 
 List<String> keyWordList
 
 ```java
+SensitiveWordInit sensitiveWordInit = new SensitiveWordInit();
 sensitivewordFilter.sensitiveWordMap = sensitiveWordInit.initKeyWord(keyWordList);
 sensitivewordFilter.sensitiveWordset = sensitiveWordInit.sensitiveWordset;
 ```
