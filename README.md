@@ -310,4 +310,71 @@ public Object demoDeleteSubmit(HttpServletRequest request, HttpServletResponse r
 
 ## 5.敏感词验证插件
 
-开发中...
+验证敏感词
+
+1.文件配置敏感词词库方式。  
+![图1](plugin-sensitiveword/1.png)  
+![图2](plugin-sensitiveword/2.png)
+
+配置文件位置。
+
+```yml
+plugin:
+  sensitive-word:
+    word-file-location: sensitiveword.txt
+```
+
+启动类使用注解@EnableSensitiveWord。
+
+```java
+@SpringBootApplication
+@EnableSensitiveWord
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+```
+
+注入对象进行验证。
+
+```java
+@Autowired
+private SensitivewordFilter sensitivewordFilter;
+
+@ResponseBody
+@RequestMapping("/sensitiveWord")
+public Object demoSensitiveWord(HttpServletRequest request, HttpServletResponse response,String word) {
+	Map<String, Object> result = new HashMap<>(16);
+	try {
+		Set<String> sensitiveWord = sensitivewordFilter.getSensitiveWord(word, SensitivewordFilter.maxMatchType);
+		result.put("status", 200);
+		result.put("message", "敏感词验证成功!");
+		result.put("sensitiveWord", sensitiveWord);
+	} catch (Exception e) {
+		LOGGER.error(ExceptionUtils.getStackTrace(e));
+		result.put("status", 400);
+		result.put("message", "敏感词验证失败!");
+	}
+	return result;
+}
+```
+
+测试结果：  
+![图2](plugin-sensitiveword/3.png)
+
+2.其它方式配置敏感词词库  
+保持上面的操作不变，不需要配置敏感词文件位置了，需要自己写监听器在项目启动后设置敏感词。因为这种方式词库的来源可能是数据库之类的地方，必须项目启动后查询才有值。也可以利用下面的方法重置词库。
+
+List<String> keyWordList
+
+```java
+sensitivewordFilter.sensitiveWordMap = sensitiveWordInit.initKeyWord(keyWordList);
+sensitivewordFilter.sensitiveWordset = sensitiveWordInit.sensitiveWordset;
+```
+
+配置文件说明
+wordFileLocation：敏感词文件位置  
+invaChar ：无效字符 默认:空格、*、#、@ 。 char[] invaChar = { ' ', '*', '#', '@' };

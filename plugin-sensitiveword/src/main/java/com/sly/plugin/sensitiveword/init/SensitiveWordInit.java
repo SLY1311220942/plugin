@@ -1,13 +1,13 @@
 package com.sly.plugin.sensitiveword.init;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,19 +31,20 @@ public class SensitiveWordInit {
     }
     
     
-    /**
-     * 初始化关键词
-     * @return
-     * @author sly
-     * @time 2019年3月1日
-     */
-    public Map<Object,Object> initKeyWord(){
+	/**
+	 * 初始化关键词(根据文件流)
+	 * 
+	 * @param path
+	 * @return
+	 * @author sly
+	 * @time 2019年3月1日
+	 */
+    public Map<Object,Object> initKeyWord(InputStream in){
         try {
             //读取敏感词库
-            Set<String> keyWordSet = readSensitiveWordFile();
+            Set<String> keyWordSet = readSensitiveWordFile(in);
             //将敏感词库加入到HashMap中
             addSensitiveWordToHashMap(keyWordSet);
-            //spring获取application，然后application.setAttribute("sensitiveWordMap",sensitiveWordMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,29 +52,49 @@ public class SensitiveWordInit {
     }
     
     /**
-     * 读取敏感词库，将敏感词放入HashSet中，构建一个DFA算法模型：
-     *  中 = {
+	 * 初始化关键词(根据敏感词list)
+	 * 
+	 * @param path
+	 * @return
+	 * @author sly
+	 * @time 2019年3月1日
+	 */
+    public Map<Object,Object> initKeyWord(List<String> keyWordList){
+        try {
+            //读取敏感词库
+            Set<String> keyWordSet = new HashSet<>(keyWordList);
+            //将敏感词库加入到HashMap中
+            addSensitiveWordToHashMap(keyWordSet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sensitiveWordMap;
+    }
+    
+    /**
+          * 读取敏感词库，将敏感词放入HashSet中，构建一个DFA算法模型：
+          *  中 = {
      *      isEnd = 0
-     *      国 = {<br>
+          *      国 = {<br>
      *           isEnd = 1
-     *           人 = {isEnd = 0
-     *                民 = {isEnd = 1}
+          *           人 = {isEnd = 0
+          *                民 = {isEnd = 1}
      *                }
-     *           男  = {
+          *           男  = {
      *                  isEnd = 0
-     *                   人 = {
+          *                   人 = {
      *                        isEnd = 1
      *                       }
      *               }
      *           }
      *      }
-     *  五 = {
+          *  五 = {
      *      isEnd = 0
-     *      星 = {
+          *      星 = {
      *          isEnd = 0
-     *          红 = {
+          *          红 = {
      *              isEnd = 0
-     *              旗 = {
+          *              旗 = {
      *                   isEnd = 1
      *                  }
      *              }
@@ -85,7 +106,8 @@ public class SensitiveWordInit {
      */
 	@SuppressWarnings("unchecked")
 	private void addSensitiveWordToHashMap(Set<String> keyWordSet) {
-		sensitiveWordMap = new HashMap<>(keyWordSet.size()); // 初始化敏感词容器，减少扩容操作
+		// 初始化敏感词容器，减少扩容操作
+		sensitiveWordMap = new HashMap<>(keyWordSet.size()); 
 		String key = null;
 		Map<Object, Object> nowMap = null;
 		Map<Object, Object> newWorMap = null;
@@ -120,24 +142,22 @@ public class SensitiveWordInit {
 		}
 	}
     
-    /**
-     * _读取敏感词库中的内容，将内容添加到set集合中
-     * @return
-     * @throws Exception
-     * @author sly
-     * @time 2019年3月1日
-     */
-	private Set<String> readSensitiveWordFile() {
+	/**
+	 * 读取敏感词库中的内容，将内容添加到set集合中
+	 * 
+	 * @param path
+	 * @return
+	 * @throws Exception
+	 * @author sly
+	 * @time 2019年3月1日
+	 */
+	private Set<String> readSensitiveWordFile(InputStream in) {
 		BufferedReader bufferedReader = null;
 		try {
 			// 读取文件
-			// File file = new File("D:\\SensitiveWord.txt");
-			File file = new File("src/main/resources/SensitiveWord.txt");
-
-			InputStreamReader read = new InputStreamReader(new FileInputStream(file), ENCODING);
-
+			InputStreamReader read = new InputStreamReader(in, ENCODING);
 			// 文件流是否存在
-			if (file.isFile() && file.exists()) {
+			if (in != null) {
 				sensitiveWordset = new HashSet<String>();
 				bufferedReader = new BufferedReader(read);
 				String txt = null;

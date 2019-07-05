@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import com.sly.plugin.sensitiveword.init.SensitiveWordInit;
+import com.sly.plugin.sensitiveword.properties.SensitiveWordProperties;
 
 /**
  * 敏感词过滤器
@@ -14,29 +14,29 @@ import com.sly.plugin.sensitiveword.init.SensitiveWordInit;
  * @time 2019年3月1日
  */
 public class SensitivewordFilter {
-	private Map<Object, Object> sensitiveWordMap = null;
+	/** 敏感词Map */
+	public Map<Object, Object> sensitiveWordMap = null;
+	/** 敏感词合集 */
 	public Set<String> sensitiveWordset = null;
-	// 无效字符:空格、*、#、@
-	public char invaChar[] = { ' ', '*', '#', '@' };
-	// 最小匹配规则
+	/** 无效字符 */
+	private char invaChar[];
+	/** 最小匹配规则 */
 	public static int minMatchType = 1;
-	// 最大匹配规则
+	/** 最大匹配规则 */
 	public static int maxMatchType = 2;
 
 	/**
-	 * _构造函数，初始化敏感词库
+	 * 构造函数，初始化敏感词库
 	 * 
 	 * @author sly
 	 * @time 2019年3月1日
 	 */
-	public SensitivewordFilter() {
-		SensitiveWordInit sensitiveWordInit = new SensitiveWordInit();
-		sensitiveWordMap = sensitiveWordInit.initKeyWord();
-		sensitiveWordset = sensitiveWordInit.sensitiveWordset;
+	public SensitivewordFilter(SensitiveWordProperties properties ) {
+		this.invaChar = properties.getInvaChar();
 	}
 
 	/**
-	 * _获取文字中的敏感词
+	 * 获取文字中的敏感词
 	 * 
 	 * @param txt
 	 * @param matchType
@@ -64,7 +64,7 @@ public class SensitivewordFilter {
 	}
 
 	/**
-	 * _替换敏感字字符
+	 * 替换敏感字字符
 	 * 
 	 * @param txt
 	 * @param matchType
@@ -90,7 +90,7 @@ public class SensitivewordFilter {
 	}
 
 	/**
-	 * _获取替换字符串
+	 * 获取替换字符串
 	 * 
 	 * @param replaceChar
 	 * @param length
@@ -108,7 +108,7 @@ public class SensitivewordFilter {
 	}
 
 	/**
-	 * _检查文字中是否包含敏感字符，检查规则如下
+	 * 检查文字中是否包含敏感字符，检查规则如下
 	 * 
 	 * @param txt
 	 * @param beginIndex
@@ -168,7 +168,7 @@ public class SensitivewordFilter {
 	}
 
 	/**
-	 * _判断是否为无效字符
+	 * 判断是否为无效字符
 	 * 
 	 * @param ch
 	 * @return 是无效字符返回true 不是无效字符返回false
@@ -185,7 +185,7 @@ public class SensitivewordFilter {
 	}
 
 	/**
-	 * _截取敏感词两边的无效字符
+	 * 截取敏感词两边的无效字符
 	 * 
 	 * @param sensitiveWord
 	 * @return
