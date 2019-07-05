@@ -14,7 +14,7 @@ public class SensitiveWordProperties {
 	private String wordFileLocation;
 	
 	/** 无效字符 默认:空格,*,#,@ */
-	private char[] invaChar = { ' ', '*', '#', '@' };
+	private String invaChar = " *#@";
 
 	public String getWordFileLocation() {
 		return wordFileLocation;
@@ -25,11 +25,17 @@ public class SensitiveWordProperties {
 	}
 
 	public char[] getInvaChar() {
-		return invaChar;
+		char[] invaChars = {};
+		if(invaChar != null ) {
+			invaChars = invaChar.toCharArray();
+		}
+		return invaChars;
 	}
 
-	public void setInvaChar(char[] invaChar) {
+	public void setInvaChar(String invaChar) {
 		this.invaChar = invaChar;
 	}
+
+	
 
 }

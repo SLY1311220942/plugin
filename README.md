@@ -322,6 +322,7 @@ public Object demoDeleteSubmit(HttpServletRequest request, HttpServletResponse r
 plugin:
   sensitive-word:
     word-file-location: sensitiveword.txt
+    inva-char: '@#'
 ```
 
 启动类使用注解@EnableSensitiveWord。
@@ -377,4 +378,4 @@ sensitivewordFilter.sensitiveWordset = sensitiveWordInit.sensitiveWordset;
 
 配置文件说明
 wordFileLocation：敏感词文件位置  
-invaChar ：无效字符 默认:空格、*、#、@ 。 char[] invaChar = { ' ', '*', '#', '@' };
+invaChar ：无效字符 默认:空格、*、#、@ 。
