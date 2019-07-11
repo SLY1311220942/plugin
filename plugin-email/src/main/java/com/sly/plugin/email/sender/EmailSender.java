@@ -40,9 +40,12 @@ public class EmailSender {
 			SimpleEmail email = new SimpleEmail();
 			// 配置信息
 			email.setHostName(emailSenderProperties.getMailServerHost());
+			email.setSmtpPort(emailSenderProperties.getMailServerPort());
 			email.setFrom(emailSenderProperties.getMailSenderAddress(), emailSenderProperties.getMailSenderNick());
 			email.setAuthentication(emailSenderProperties.getMailSenderUsername(), emailSenderProperties.getMailSenderPassword());
 			email.setCharset(emailSenderProperties.getCharset());
+			email.setSSLOnConnect(emailSenderProperties.isSsl());
+			email.setStartTLSEnabled(emailSenderProperties.isTls());
 			
 			// 邮件主题
 			email.setSubject(mailInfo.getSubject());
@@ -85,9 +88,12 @@ public class EmailSender {
 			MultiPartEmail email = new MultiPartEmail();
 			// 配置信息
 			email.setHostName(emailSenderProperties.getMailServerHost());
+			email.setSmtpPort(emailSenderProperties.getMailServerPort());
 			email.setFrom(emailSenderProperties.getMailSenderAddress(), emailSenderProperties.getMailSenderNick());
 			email.setAuthentication(emailSenderProperties.getMailSenderUsername(), emailSenderProperties.getMailSenderPassword());
 			email.setCharset(emailSenderProperties.getCharset());
+			email.setSSLOnConnect(emailSenderProperties.isSsl());
+			email.setStartTLSEnabled(emailSenderProperties.isTls());
 			
 			// 邮件主题
 			email.setSubject(mailInfo.getSubject());
@@ -135,9 +141,12 @@ public class EmailSender {
 			HtmlEmail email = new HtmlEmail();
 			// 配置信息
 			email.setHostName(emailSenderProperties.getMailServerHost());
+			email.setSmtpPort(emailSenderProperties.getMailServerPort());
 			email.setFrom(emailSenderProperties.getMailSenderAddress(), emailSenderProperties.getMailSenderNick());
 			email.setAuthentication(emailSenderProperties.getMailSenderUsername(), emailSenderProperties.getMailSenderPassword());
 			email.setCharset(emailSenderProperties.getCharset());
+			email.setSSLOnConnect(emailSenderProperties.isSsl());
+			email.setStartTLSEnabled(emailSenderProperties.isTls());
 			
 			// 邮件主题
 			email.setSubject(mailInfo.getSubject());
@@ -185,9 +194,12 @@ public class EmailSender {
 			ImageHtmlEmail email = new ImageHtmlEmail();
 			// 配置信息
 			email.setHostName(emailSenderProperties.getMailServerHost());
+			email.setSmtpPort(emailSenderProperties.getMailServerPort());
 			email.setFrom(emailSenderProperties.getMailSenderAddress(), emailSenderProperties.getMailSenderNick());
 			email.setAuthentication(emailSenderProperties.getMailSenderUsername(), emailSenderProperties.getMailSenderPassword());
 			email.setCharset(emailSenderProperties.getCharset());
+			email.setSSLOnConnect(emailSenderProperties.isSsl());
+			email.setStartTLSEnabled(emailSenderProperties.isTls());
 			
 			// 邮件主题
 			email.setSubject(mailInfo.getSubject());

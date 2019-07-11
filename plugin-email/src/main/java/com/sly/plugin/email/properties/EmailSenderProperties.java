@@ -13,6 +13,8 @@ public class EmailSenderProperties {
 
 	/** 邮件服务器主机地址 */
 	private String mailServerHost;
+	/** 邮件服务器主机端口 */
+	private int mailServerPort;
 	/** 邮件发送者地址 */
 	private String mailSenderAddress;
 	/** 邮件发送者昵称 */
@@ -23,6 +25,10 @@ public class EmailSenderProperties {
 	private String mailSenderPassword;
 	/** 邮件编码格式默认UTF-8 */
 	private String charset = "UTF-8";
+	/** 设置SSL加密方式 默认false */
+	private boolean ssl;
+	/** 设置SSL加密方式 默认false */
+	private boolean tls;
 
 	public String getMailServerHost() {
 		return mailServerHost;
@@ -30,6 +36,14 @@ public class EmailSenderProperties {
 
 	public void setMailServerHost(String mailServerHost) {
 		this.mailServerHost = mailServerHost;
+	}
+
+	public int getMailServerPort() {
+		return mailServerPort;
+	}
+
+	public void setMailServerPort(int mailServerPort) {
+		this.mailServerPort = mailServerPort;
 	}
 
 	public String getMailSenderAddress() {
@@ -70,6 +84,22 @@ public class EmailSenderProperties {
 
 	public void setCharset(String charset) {
 		this.charset = charset;
+	}
+
+	public boolean isSsl() {
+		return ssl;
+	}
+
+	public void setSsl(boolean ssl) {
+		this.ssl = ssl;
+	}
+
+	public boolean isTls() {
+		return tls;
+	}
+
+	public void setTls(boolean tls) {
+		this.tls = tls;
 	}
 
 }
