@@ -1,11 +1,17 @@
 package com.sly.plugin.email.sender;
 
+import java.net.URL;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.mail.DataSourceResolver;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.ImageHtmlEmail;
 import org.apache.commons.mail.MultiPartEmail;
 import org.apache.commons.mail.SimpleEmail;
+import org.apache.commons.mail.resolver.DataSourceCompositeResolver;
+import org.apache.commons.mail.resolver.DataSourceFileResolver;
+import org.apache.commons.mail.resolver.DataSourceUrlResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -200,6 +206,14 @@ public class EmailSender {
 			email.setCharset(emailSenderProperties.getCharset());
 			email.setSSLOnConnect(emailSenderProperties.isSsl());
 			email.setStartTLSEnabled(emailSenderProperties.isTls());
+			
+			//添加DataSourceFileResolver用于解析本地图片
+			DataSourceResolver[] dataSourceResolvers = new DataSourceResolver[]{
+					new DataSourceFileResolver(),
+					new DataSourceUrlResolver(new URL("http://"))
+					};
+
+			email.setDataSourceResolver(new DataSourceCompositeResolver(dataSourceResolvers));
 			
 			// 邮件主题
 			email.setSubject(mailInfo.getSubject());

@@ -1,5 +1,6 @@
 package com.sly.plugin.email.model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class MailInfo {
 	/** 密送人 */
 	private Set<String> bccList = new LinkedHashSet<>();
 	/** 附件 */
-	private List<EmailAttachment> attachments = null;
+	private List<EmailAttachment> attachments = new ArrayList<>();
 	/** 邮件主题 */
 	private String subject;
 	/** 邮件的文本内容 */

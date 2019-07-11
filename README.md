@@ -378,3 +378,151 @@ sensitivewordFilter.sensitiveWordset = sensitiveWordInit.sensitiveWordset;
 配置文件说明
 wordFileLocation：敏感词文件位置  
 invaChar ：无效字符 默认:空格、*、#、@ 。
+
+
+## 6.邮件发送插件
+
+用于在web项目中简化邮件发送
+
+1.配置邮件服务器
+
+```yml
+plugin:
+  email:
+    mail-server-host: smtp.qq.com
+    mail-server-port: 465
+    mail-sender-address: xxxxxxxxx@qq.com
+    mail-sender-username: xxxxxxx
+    mail-sender-password: xxxxxxxxxxxxx
+    mail-sender-nick: SLY
+    ssl: true
+```
+
+2.启动类使用注解@EnableEmailSender
+
+```java
+@SpringBootApplication
+@EnableEmailSender
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+```
+
+3.注入邮件发送对象，使用MailInfo类封装邮件内容
+
+```java
+@Autowired
+private EmailSender emailSender;
+
+@ResponseBody
+@RequestMapping("/sendSimpleEmail")
+public BaseResult sendSimpleEmail(HttpServletRequest request,HttpServletResponse response) {
+	BaseResult result = new BaseResult();
+	try {
+		MailInfo mailInfo = new MailInfo();
+		
+		mailInfo.setContent("sendSimpleEmail测试内容");
+		mailInfo.setSubject("sendSimpleEmail测试");
+		mailInfo.addAddressee("xxxxxxx@qq.com");
+		
+		emailSender.sendSimpleEmail(mailInfo);
+		
+		result.setStatus(ResultStatus.SUCCESS);
+	} catch (Exception e) {
+		LOGGER.error(ExceptionUtils.getStackTrace(e));
+		result.setStatus(ResultStatus.FAILED);
+	}
+	return result;
+}
+
+@ResponseBody
+@RequestMapping("/sendMultiPartEmail")
+public BaseResult sendMultiPartEmail(HttpServletRequest request,HttpServletResponse response) {
+	BaseResult result = new BaseResult();
+	try {
+		EmailAttachment attachment = new EmailAttachment();
+		attachment.setName("测试文件.txt");
+		attachment.setPath("D:\\test\\ftpdownload.txt");
+		
+		MailInfo mailInfo = new MailInfo();
+		
+		mailInfo.setContent("sendMultiPartEmail测试内容");
+		mailInfo.setSubject("sendMultiPartEmail测试");
+		mailInfo.addAddressee("xxxxxxx@qq.com");
+		mailInfo.addAttachment(attachment);
+		
+		emailSender.sendMultiPartEmail(mailInfo);
+		
+		result.setStatus(ResultStatus.SUCCESS);
+	} catch (Exception e) {
+		LOGGER.error(ExceptionUtils.getStackTrace(e));
+		result.setStatus(ResultStatus.FAILED);
+	}
+	
+	return result;
+}
+
+@ResponseBody
+@RequestMapping("/sendHtmlEmail")
+public BaseResult sendHtmlEmail(HttpServletRequest request,HttpServletResponse response) {
+	BaseResult result = new BaseResult();
+	try {
+		EmailAttachment attachment = new EmailAttachment();
+		attachment.setName("测试文件.txt");
+		attachment.setPath("D:\\test\\ftpdownload.txt");
+		
+		MailInfo mailInfo = new MailInfo();
+		
+		mailInfo.setContent("<h1>sendHtmlEmail测试内容</h1>");
+		mailInfo.setSubject("sendSimpleEmail测试");
+		mailInfo.addAddressee("xxxxxxx@qq.com");
+		mailInfo.addAttachment(attachment);
+		
+		emailSender.sendHtmlEmail(mailInfo);
+		
+		result.setStatus(ResultStatus.SUCCESS);
+	} catch (Exception e) {
+		LOGGER.error(ExceptionUtils.getStackTrace(e));
+		result.setStatus(ResultStatus.FAILED);
+	}
+	
+	return result;
+}
+
+@ResponseBody
+@RequestMapping("/sendImageHtmlEmail")
+public BaseResult sendImageHtmlEmail(HttpServletRequest request,HttpServletResponse response) {
+	BaseResult result = new BaseResult();
+	try {
+		EmailAttachment attachment = new EmailAttachment();
+		attachment.setName("测试文件.txt");
+		attachment.setPath("D:\\test\\ftpdownload.txt");
+		
+		MailInfo mailInfo = new MailInfo();
+		
+		
+		mailInfo.setContent("<h1>sendImageHtmlEmail测试内容</h1>" + "<img src=\"D:\\test\\image.jpg\">"
+				+ " <img src=\"http://commons.apache.org/proper/commons-email/images/commons-logo.png\">");
+		mailInfo.setSubject("sendSimpleEmail测试");
+		mailInfo.addAddressee("xxxxxxx@qq.com");
+		mailInfo.addAttachment(attachment);
+		
+		emailSender.sendImageHtmlEmail(mailInfo);
+		
+		result.setStatus(ResultStatus.SUCCESS);
+	} catch (Exception e) {
+		LOGGER.error(ExceptionUtils.getStackTrace(e));
+		result.setStatus(ResultStatus.FAILED);
+	}
+	
+	return result;
+}
+```
+
+
+
+
