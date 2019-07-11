@@ -1,5 +1,75 @@
 package com.sly.plugin.email.properties;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+/**
+ * 邮件发送属性类
+ * 
+ * @author sly
+ * @time 2019年7月11日
+ */
+@ConfigurationProperties(prefix = "plugin.email")
 public class EmailSenderProperties {
+
+	/** 邮件服务器主机地址 */
+	private String mailServerHost;
+	/** 邮件发送者地址 */
+	private String mailSenderAddress;
+	/** 邮件发送者昵称 */
+	private String mailSenderNick;
+	/** 邮件发送者用户名 */
+	private String mailSenderUsername;
+	/** 邮件发送者密码 */
+	private String mailSenderPassword;
+	/** 邮件编码格式默认UTF-8 */
+	private String charset = "UTF-8";
+
+	public String getMailServerHost() {
+		return mailServerHost;
+	}
+
+	public void setMailServerHost(String mailServerHost) {
+		this.mailServerHost = mailServerHost;
+	}
+
+	public String getMailSenderAddress() {
+		return mailSenderAddress;
+	}
+
+	public void setMailSenderAddress(String mailSenderAddress) {
+		this.mailSenderAddress = mailSenderAddress;
+	}
+
+	public String getMailSenderNick() {
+		return mailSenderNick;
+	}
+
+	public void setMailSenderNick(String mailSenderNick) {
+		this.mailSenderNick = mailSenderNick;
+	}
+
+	public String getMailSenderUsername() {
+		return mailSenderUsername;
+	}
+
+	public void setMailSenderUsername(String mailSenderUsername) {
+		this.mailSenderUsername = mailSenderUsername;
+	}
+
+	public String getMailSenderPassword() {
+		return mailSenderPassword;
+	}
+
+	public void setMailSenderPassword(String mailSenderPassword) {
+		this.mailSenderPassword = mailSenderPassword;
+	}
+
+	public String getCharset() {
+		return charset;
+	}
+
+	public void setCharset(String charset) {
+		this.charset = charset;
+	}
 
 }
