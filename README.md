@@ -523,6 +523,31 @@ public BaseResult sendImageHtmlEmail(HttpServletRequest request,HttpServletRespo
 }
 ```
 
+## 7.二维码生成工具类
+1.使用方法
 
+```java
+public static void main(String[] args) throws Exception {
+	// 生成二维码
+	QrcodeTemplate qrcodeTemplate = new QrcodeTemplate(400, "https://www.baidu.com/");
+	BufferedImage logoImage = ImageIO.read(new File("C:\\Users\\PC\\Desktop\\icon\\logo.png"));
+	InputStream inputStream = generateQrcodeWithLogoInputStream(qrcodeTemplate, logoImage);
+	
+	// 下面是为了写入文件
+	byte[] bytes = new byte[1024*8];
+	int len = 0;
+	OutputStream outputStream = new FileOutputStream(new File("D:\\test\\qrcodeTest2.png"));
+	while ((len = inputStream.read(bytes)) > 0) {
+		outputStream.write(bytes, 0, len);
+	}
+	
+	outputStream.close();
+	inputStream.close();
+}
+```
 
-
+2.方法，有四个方法用来生成码
+* 生成二维码返回流：generateQrcodeInputStream(QrcodeTemplate template)；
+* 生成二维码返回image：generateQrcodeImage(QrcodeTemplate template)；
+* 生成带logo的二维码返回流：generateQrcodeWithLogoInputStream(QrcodeTemplate template, BufferedImage logoImage)
+* 生成带logo的二维码返image：generateQrcodeWithLogoImage(QrcodeTemplate template, BufferedImage logoImage)
