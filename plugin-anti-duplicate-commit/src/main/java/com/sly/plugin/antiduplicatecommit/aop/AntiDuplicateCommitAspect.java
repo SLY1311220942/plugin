@@ -13,6 +13,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -29,6 +30,7 @@ import com.sly.plugin.common.result.BaseResult;
  * @time 2019年5月15日
  */
 @Aspect
+@Order(1000)
 public class AntiDuplicateCommitAspect {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AntiDuplicateCommitAspect.class);
 

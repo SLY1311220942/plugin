@@ -13,6 +13,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 
 import com.sly.plugin.common.constant.ResultStatus;
 import com.sly.plugin.common.message.Message;
@@ -46,6 +47,7 @@ import com.sly.plugin.validate.resolve.ValidResolve;
  * @time 2019年6月18日
  */
 @Aspect
+@Order(2000)
 public class ValidateAspect {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ValidateAspect.class);
 
