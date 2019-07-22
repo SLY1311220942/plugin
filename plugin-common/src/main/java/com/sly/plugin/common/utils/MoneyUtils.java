@@ -40,7 +40,7 @@ public class MoneyUtils {
 	 * @time 2019年7月12日
 	 */
     public static String numberMoneyToCnMoney(Double numberOfMoney) {
-    	BigDecimal money = new BigDecimal(numberOfMoney + "");
+    	BigDecimal money = new BigDecimal(String.valueOf(numberOfMoney));
     	return numberMoneyToCnMoney(money);
     }
     

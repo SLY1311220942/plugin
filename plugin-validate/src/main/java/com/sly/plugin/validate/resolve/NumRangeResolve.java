@@ -42,9 +42,9 @@ public class NumRangeResolve {
 			// 空值默认验证失败
 			return new BaseResult(ResultStatus.FAILED, annotation.message());
 		} else if (parameterValue instanceof Number) {
-			BigDecimal value = new BigDecimal(parameterValue + "");
-			BigDecimal min = new BigDecimal(annotation.min() + "");
-			BigDecimal max = new BigDecimal(annotation.max() + "");
+			BigDecimal value = new BigDecimal(String.valueOf(parameterValue));
+			BigDecimal min = new BigDecimal(String.valueOf(annotation.min()));
+			BigDecimal max = new BigDecimal(String.valueOf(annotation.max()));
 			
 			if (Interval.OPEN_OPEN.equals(interval) || Interval.OPEN_CLOSE.equals(interval)) {
 				if (value.compareTo(min) == 1) {
