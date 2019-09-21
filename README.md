@@ -553,7 +553,7 @@ public static void main(String[] args) throws Exception {
 * 生成带logo的二维码返image：generateQrcodeWithLogoImage(QrcodeTemplate template, BufferedImage logoImage)
 
 
-# FTP连接池
+# 8.FTP连接池
 1.使用方法
 
 启动类加上注解@EnableFtpPool
