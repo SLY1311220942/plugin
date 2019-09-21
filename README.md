@@ -551,3 +551,60 @@ public static void main(String[] args) throws Exception {
 * 生成二维码返回image：generateQrcodeImage(QrcodeTemplate template)；
 * 生成带logo的二维码返回流：generateQrcodeWithLogoInputStream(QrcodeTemplate template, BufferedImage logoImage)
 * 生成带logo的二维码返image：generateQrcodeWithLogoImage(QrcodeTemplate template, BufferedImage logoImage)
+
+
+# FTP连接池
+1.使用方法
+
+启动类加上注解@EnableFtpPool
+```
+@EnableFtpPool
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+```
+
+配置文件
+```
+plugin:
+  ftp-pool:
+    host: 192.168.100.101
+    port: 21
+    username: ftpuser
+    password: 123456
+    projectRoot: /
+    connectTimeOut: 30000
+    passiveMode: false
+```
+
+使用
+```
+// 注入即可使用
+@Autowired
+private FTPClientHelper ftpClientHelper;
+
+@ResponseBody
+@RequestMapping("/upload")
+public Object upload(HttpServletRequest request, HttpServletResponse response) {
+	Map<String, Object> result = new HashMap<String, Object>();
+	try {
+		String filePath = "D:\\Test\\ftpPool\\testUplodFile.txt";
+		InputStream inputStream = new FileInputStream(filePath);
+		if (ftpClientHelper.storeFile("/ftpdemo/" + CommonUtils.genUUID() + ".txt", inputStream)) {
+			result.put("status", 200);
+		} else {
+			result.put("status", 400);
+		}
+
+	} catch (Exception e) {
+		LOGGER.error(ExceptionUtils.getStackTrace(e));
+	}
+	return result;
+
+}
+```
