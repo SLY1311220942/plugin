@@ -12,6 +12,7 @@ import com.sly.plugin.sensitiveword.configuration.SensitiveWordConfig;
 
 /**
  * 开启敏感词验证配置注解
+ * 
  * @author sly
  * @time 2019年6月18日
  */

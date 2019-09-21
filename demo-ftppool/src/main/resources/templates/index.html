@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+	var webRoot = '[[${#httpServletRequest.getContextPath()}]]';
+</script>
+<body>
+	<button onclick="upload()">上传</button>
+</body>
+<script type="text/javascript" th:src="@{/jquery/jQuery-2.2.0.min.js}"></script>
+<script type="text/javascript">
+	function upload() {
+		$.ajax({
+			type : "post",
+			url : webRoot + "/demo/upload",
+			dataType : "json",
+			data : {
+
+			},
+			success : function(data) {
+				if (data.status == 200) {
+					alert("成功！");
+				} else {
+					alert("失败！");
+				}
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				alert("失败！");
+			}
+		});
+	}
+</script>
+</html>
