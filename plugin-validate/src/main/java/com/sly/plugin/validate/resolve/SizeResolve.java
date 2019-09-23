@@ -4,9 +4,8 @@ import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Map;
 
-import com.sly.plugin.common.constant.ResultStatus;
-import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.common.result.ResultStatus;
 import com.sly.plugin.validate.constraints.Size;
 
 /**
@@ -53,7 +52,7 @@ public class SizeResolve {
 		}
 		
 		if(size >= min && size <= max) {
-			return new BaseResult(ResultStatus.SUCCESS, Message.VALIDATE_PASSED);
+			return new BaseResult(ResultStatus.VALIDATE_PASSED);
 		}else {
 			return new BaseResult(ResultStatus.FAILED, annotation.message());
 		}

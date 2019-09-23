@@ -15,8 +15,8 @@ import org.apache.commons.mail.resolver.DataSourceUrlResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sly.plugin.common.constant.ResultStatus;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.common.result.ResultStatus;
 import com.sly.plugin.email.model.MailInfo;
 import com.sly.plugin.email.properties.EmailSenderProperties;
 
@@ -75,7 +75,7 @@ public class EmailSender {
 			
 			String send = email.send();
 			
-			return new BaseResult(ResultStatus.SUCCESS, send);
+			return new BaseResult(ResultStatus.SUCCESS.getStatus(), send);
 		} catch (Exception e) {
 			LOGGER.error("邮件发送失败：" + ExceptionUtils.getStackTrace(e));
 			throw new RuntimeException("邮件发送失败：", e);
@@ -128,7 +128,7 @@ public class EmailSender {
 			
 			String send = email.send();
 			
-			return new BaseResult(ResultStatus.SUCCESS, send);
+			return new BaseResult(ResultStatus.SUCCESS.getStatus(), send);
 		} catch (Exception e) {
 			LOGGER.error("邮件发送失败：" + ExceptionUtils.getStackTrace(e));
 			throw new RuntimeException("邮件发送失败：", e);
@@ -181,7 +181,7 @@ public class EmailSender {
 			
 			String send = email.send();
 			
-			return new BaseResult(ResultStatus.SUCCESS, send);
+			return new BaseResult(ResultStatus.SUCCESS.getStatus(), send);
 		} catch (Exception e) {
 			LOGGER.error("邮件发送失败：" + ExceptionUtils.getStackTrace(e));
 			throw new RuntimeException("邮件发送失败：", e);
@@ -242,7 +242,7 @@ public class EmailSender {
 			
 			String send = email.send();
 			
-			return new BaseResult(ResultStatus.SUCCESS, send);
+			return new BaseResult(ResultStatus.SUCCESS.getStatus(), send);
 		} catch (Exception e) {
 			LOGGER.error("邮件发送失败：" + ExceptionUtils.getStackTrace(e));
 			throw new RuntimeException("邮件发送失败：", e);

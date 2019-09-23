@@ -4,9 +4,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-import com.sly.plugin.common.constant.ResultStatus;
-import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.common.result.ResultStatus;
 import com.sly.plugin.validate.constraints.Email;
 import com.sly.plugin.validate.constraints.NotBlank;
 import com.sly.plugin.validate.constraints.NotNull;
@@ -49,67 +48,67 @@ public class ValidResolve {
 				if((annotations[i] instanceof NotBlank) && Arrays.asList(((NotBlank)annotations[i]).group()).contains(group)) {
 					// NotBlank验证
 					BaseResult resolveResult = NotBlankResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if((annotations[i] instanceof NotNull) && Arrays.asList(((NotNull)annotations[i]).group()).contains(group)) {
 					// NotNull验证
 					BaseResult resolveResult = NotNullResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if((annotations[i] instanceof Null) && Arrays.asList(((Null)annotations[i]).group()).contains(group)) {
 					// Null验证
 					BaseResult resolveResult = NullResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if((annotations[i] instanceof Size) && Arrays.asList(((Size)annotations[i]).group()).contains(group)) {
 					// Size验证
 					BaseResult resolveResult = SizeResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if((annotations[i] instanceof NumRange) && Arrays.asList(((NumRange)annotations[i]).group()).contains(group)) {
 					// NumRange验证
 					BaseResult resolveResult = NumRangeResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if((annotations[i] instanceof Regex) && Arrays.asList(((Regex)annotations[i]).group()).contains(group)) {
 					// Regex验证
 					BaseResult resolveResult = RegexResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if((annotations[i] instanceof Phone) && Arrays.asList(((Phone)annotations[i]).group()).contains(group)) {
 					// Phone验证
 					BaseResult resolveResult = PhoneResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if((annotations[i] instanceof Tel) && Arrays.asList(((Tel)annotations[i]).group()).contains(group)) {
 					// Tel验证
 					BaseResult resolveResult = TelResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if((annotations[i] instanceof PhoneOrTel) && Arrays.asList(((PhoneOrTel)annotations[i]).group()).contains(group)) {
 					// PhoneOrTel验证
 					BaseResult resolveResult = PhoneOrTelResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if((annotations[i] instanceof Email) && Arrays.asList(((Email)annotations[i]).group()).contains(group)) {
 					// Email验证
 					BaseResult resolveResult = EmailResolve.resolve(fieldValue, field.getType(),annotations[i]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				}
 			}
 		}
-		return new BaseResult(ResultStatus.SUCCESS, Message.VALIDATE_PASSED);
+		return new BaseResult(ResultStatus.VALIDATE_PASSED);
 	}
 
 }

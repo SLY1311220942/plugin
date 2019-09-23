@@ -1,6 +1,6 @@
 package com.sly.plugin.common.exception;
 
-import com.sly.plugin.common.returncode.IReturnCode;
+import com.sly.plugin.common.result.IStatus;
 
 /**
  * service自定义异常
@@ -13,7 +13,7 @@ public class ServiceCustomException extends RuntimeException {
 	
 	private Integer customStatus;
 	private String customMessage;
-	private  IReturnCode returnCode;
+	private  IStatus returnCode;
 	
 	/**
 	 * 构造方法
@@ -67,7 +67,7 @@ public class ServiceCustomException extends RuntimeException {
 	 * @author sly
 	 * @time 2018年11月14日
 	 */
-	public ServiceCustomException(IReturnCode returnCode,Throwable cause) {
+	public ServiceCustomException(IStatus returnCode,Throwable cause) {
 		super(cause);
 		setReturnCode(returnCode);
 	}
@@ -118,7 +118,7 @@ public class ServiceCustomException extends RuntimeException {
 	 * @author sly
 	 * @time 2018年11月14日
 	 */
-	public IReturnCode getReturnCode() {
+	public IStatus getReturnCode() {
 		return returnCode;
 	}
 	
@@ -128,9 +128,9 @@ public class ServiceCustomException extends RuntimeException {
 	 * @author sly
 	 * @time 2018年11月14日
 	 */
-	public void setReturnCode(IReturnCode returnCode) {
-		this.customStatus=returnCode.getCode();
-		this.customMessage=returnCode.getMsg();
+	public void setReturnCode(IStatus returnCode) {
+		this.customStatus=returnCode.getStatus();
+		this.customMessage=returnCode.getMessage();
 		this.returnCode = returnCode;
 	}
 }

@@ -15,9 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 
-import com.sly.plugin.common.constant.ResultStatus;
-import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.common.result.ResultStatus;
 import com.sly.plugin.validate.annotation.Valid;
 import com.sly.plugin.validate.constraints.Email;
 import com.sly.plugin.validate.constraints.NotBlank;
@@ -81,67 +80,67 @@ public class ValidateAspect {
 					// Valid验证对象
 					Valid valid = (Valid) annotations[j];
 					BaseResult resolveResult = ValidResolve.resolve(parameterValue, type, valid.value());
-					if (resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if (resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if (annotations[j] instanceof NotBlank) {
 					// NotBlank验证
 					BaseResult resolveResult = NotBlankResolve.resolve(parameterValue, type, annotations[j]);
-					if (resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if (resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if(annotations[j] instanceof NotNull) {
 					// NotNull验证
 					BaseResult resolveResult = NotNullResolve.resolve(parameterValue, type, annotations[j]);
-					if (resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if (resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if(annotations[j] instanceof Null) {
 					// Null验证
 					BaseResult resolveResult = NullResolve.resolve(parameterValue, type, annotations[j]);
-					if (resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if (resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if(annotations[j] instanceof Size) {
 					// Size验证
 					BaseResult resolveResult = SizeResolve.resolve(parameterValue, type, annotations[j]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if(annotations[j] instanceof NumRange) {
 					// NumRange验证
 					BaseResult resolveResult = SizeResolve.resolve(parameterValue, type, annotations[j]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if(annotations[j] instanceof Regex) {
 					// Regex验证
 					BaseResult resolveResult = RegexResolve.resolve(parameterValue, type, annotations[j]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if(annotations[j] instanceof Phone) {
 					// Phone验证
 					BaseResult resolveResult = PhoneResolve.resolve(parameterValue, type, annotations[j]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if(annotations[j] instanceof Tel) {
 					// Tel验证
 					BaseResult resolveResult = TelResolve.resolve(parameterValue, type, annotations[j]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if(annotations[j] instanceof PhoneOrTel) {
 					// PhoneOrTel验证
 					BaseResult resolveResult = PhoneOrTelResolve.resolve(parameterValue, type, annotations[j]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				} else if(annotations[j] instanceof Email) {
 					// Email验证
 					BaseResult resolveResult = EmailResolve.resolve(parameterValue, type, annotations[j]);
-					if(resolveResult.getStatus() != ResultStatus.SUCCESS) {
+					if(resolveResult.getStatus() != ResultStatus.SUCCESS.getStatus()) {
 						return resolveResult;
 					}
 				}
@@ -153,7 +152,7 @@ public class ValidateAspect {
 			return point.proceed();
 		} catch (Exception e) {
 			LOGGER.error("原始异常:" + ExceptionUtils.getStackTrace(e));
-			return new BaseResult(ResultStatus.ERROR, Message.SYSTEM_ERROR);
+			return new BaseResult(ResultStatus.SYSTEM_ERROR);
 		}
 	}
 }

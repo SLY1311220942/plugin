@@ -19,9 +19,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.sly.plugin.antiduplicatecommit.annotation.AntiDuplicateCommit;
 import com.sly.plugin.antiduplicatecommit.properties.AntiDuplicateCommitProperties;
-import com.sly.plugin.common.constant.ResultStatus;
-import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.common.result.ResultStatus;
 
 /**
  * 反重复提交AOP
@@ -106,8 +105,8 @@ public class AntiDuplicateCommitAspect {
 			return ret;
 		} catch (Exception e) {
 			LOGGER.error("原始异常:" + ExceptionUtils.getStackTrace(e));
-			result.setStatus(ResultStatus.ERROR);
-			result.setMessage(Message.SYSTEM_ERROR);
+			result.setStatus(ResultStatus.SYSTEM_ERROR.getStatus());
+			result.setMessage(ResultStatus.SYSTEM_ERROR.getMessage());
 			return result;
 		}
 

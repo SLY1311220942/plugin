@@ -5,9 +5,8 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-import com.sly.plugin.common.constant.ResultStatus;
-import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.common.result.ResultStatus;
 import com.sly.plugin.validate.constant.Interval;
 import com.sly.plugin.validate.constraints.NumRange;
 
@@ -86,6 +85,6 @@ public class NumRangeResolve {
 			throw new RuntimeException("不支持类型异常：@NumRange注解只支持数字类型的参数和字段");
 		}
 
-		return new BaseResult(ResultStatus.SUCCESS, Message.VALIDATE_PASSED);
+		return new BaseResult(ResultStatus.VALIDATE_PASSED);
 	}
 }

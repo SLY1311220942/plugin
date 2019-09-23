@@ -4,9 +4,8 @@ import java.lang.annotation.Annotation;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.sly.plugin.common.constant.ResultStatus;
-import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.common.result.ResultStatus;
 import com.sly.plugin.validate.constraints.NotBlank;
 
 /**
@@ -38,7 +37,7 @@ public class NotBlankResolve {
 		if (StringUtils.isBlank((String) parameterValue)) {
 			return new BaseResult(ResultStatus.FAILED, annotation.message());
 		}
-		return new BaseResult(ResultStatus.SUCCESS, Message.VALIDATE_PASSED);
+		return new BaseResult(ResultStatus.VALIDATE_PASSED);
 	}
 
 }

@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.sly.plugin.common.returncode.IReturnCode;
-
 /**
  * 公共返回对象
  * 
@@ -47,10 +45,26 @@ public class BaseResult implements Serializable {
 		setStatus(status);
 		setMessage(message);
 	}
-	
-	public BaseResult(Integer status, IReturnCode returnCode) {
-		setStatus(status);
-		setMessage(returnCode.getMsg() + "错误码:" + returnCode.getCode());
+
+	/**
+	 * 构造方法
+	 * 
+	 * @param status
+	 * @param message
+	 */
+	public BaseResult(IStatus status, String message) {
+		setStatus(status.getStatus());
+		setMessage(message);
+	}
+
+	/**
+	 * 构造方法
+	 * 
+	 * @param status
+	 */
+	public BaseResult(IStatus status) {
+		setStatus(status.getStatus());
+		setMessage(status.getMessage());
 	}
 
 	/**
@@ -72,12 +86,38 @@ public class BaseResult implements Serializable {
 	 * 
 	 * @param status
 	 * @param message
+	 * @param key
+	 * @param value
+	 */
+	public BaseResult(IStatus status, String key, Object value) {
+		setStatus(status.getStatus());
+		setMessage(status.getMessage());
+		setValue(key, value);
+	}
+
+	/**
+	 * 构造方法
+	 * 
+	 * @param status
+	 * @param message
 	 * @param dataMap
 	 */
 	public BaseResult(Integer status, String message, Map<String, Object> dataMap) {
 		setDataMap(dataMap);
 		setStatus(status);
 		setMessage(message);
+	}
+
+	/**
+	 * 构造方法
+	 * 
+	 * @param status
+	 * @param dataMap
+	 */
+	public BaseResult(IStatus status, Map<String, Object> dataMap) {
+		setDataMap(dataMap);
+		setStatus(status.getStatus());
+		setMessage(status.getMessage());
 	}
 
 	/**
@@ -91,6 +131,20 @@ public class BaseResult implements Serializable {
 	public BaseResult(Integer status, String message, Integer total, List<?> rows) {
 		setStatus(status);
 		setMessage(message);
+		setTotal(total);
+		setRows(rows);
+	}
+
+	/**
+	 * 构造方法
+	 * 
+	 * @param status
+	 * @param total
+	 * @param rows
+	 */
+	public BaseResult(IStatus status, Integer total, List<?> rows) {
+		setStatus(status.getStatus());
+		setMessage(status.getMessage());
 		setTotal(total);
 		setRows(rows);
 	}
@@ -147,7 +201,7 @@ public class BaseResult implements Serializable {
 	 * @time 2018年11月12日
 	 */
 	public List<?> getRows() {
-		return  (List<?>) dataMap.get("rows");
+		return (List<?>) dataMap.get("rows");
 	}
 
 	/**
@@ -219,9 +273,10 @@ public class BaseResult implements Serializable {
 	public void setValue(String key, Object value) {
 		dataMap.put(key, value);
 	}
-	
+
 	/**
 	 * 从数据map取数据
+	 * 
 	 * @param key
 	 * @return
 	 * @author sly

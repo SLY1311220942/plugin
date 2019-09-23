@@ -3,9 +3,8 @@ package com.sly.plugin.validate.resolve;
 import java.lang.annotation.Annotation;
 
 import com.sly.plugin.common.constant.CommonRegex;
-import com.sly.plugin.common.constant.ResultStatus;
-import com.sly.plugin.common.message.Message;
 import com.sly.plugin.common.result.BaseResult;
+import com.sly.plugin.common.result.ResultStatus;
 import com.sly.plugin.validate.constraints.Phone;
 
 /**
@@ -36,6 +35,6 @@ public class PhoneResolve {
 				return new BaseResult(ResultStatus.FAILED, annotation.message());
 			}
 		}
-		return new BaseResult(ResultStatus.SUCCESS, Message.VALIDATE_PASSED);
+		return new BaseResult(ResultStatus.VALIDATE_PASSED);
 	}
 }
