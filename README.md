@@ -51,7 +51,7 @@ plugin:
     message: 页面超时请刷新重试!
 ```
 
-开启反重复提交插件
+开启反重复提交插件 使用plugin-anti-duplicate-commit-starter则无需使用该注解
 
 ```java
 /**
@@ -155,7 +155,7 @@ plugin-validate
 
 该工程是为了简化对请求参数的验证，该工程依赖了plugin-common。
 
-开启参数验证@EnableValidate
+开启参数验证@EnableValidate 使用plugin-validate-starter则无需使用该注解
 
 ```java
 /**
@@ -326,7 +326,7 @@ plugin:
     inva-char: '@#'
 ```
 
-启动类使用注解@EnableSensitiveWord。
+启动类使用注解@EnableSensitiveWord。使用plugin-sensitiveword-starter则无需使用该注解
 
 ```java
 @SpringBootApplication
@@ -399,7 +399,7 @@ plugin:
     ssl: true
 ```
 
-2.启动类使用注解@EnableEmailSender
+2.启动类使用注解@EnableEmailSender 使用plugin-email-starter则无需使用该注解
 
 ```java
 @SpringBootApplication
@@ -557,7 +557,7 @@ public static void main(String[] args) throws Exception {
 # 8.FTP连接池
 1.使用方法
 
-启动类加上注解@EnableFtpPool
+启动类加上注解@EnableFtpPool 使用plugin-ftp-pool-starter则无需使用该注解
 ```
 @EnableFtpPool
 @SpringBootApplication
