@@ -115,7 +115,8 @@ plugin:
       exclude-path: /demo/demoUpdateSubmit	
 ```
 
-开启xss过滤器@EnableXssFilter
+开启xss过滤器@EnableXssFilter 使用plugin-xss-filter-starter则无需使用该注解
+
 
 ```java
 /**
