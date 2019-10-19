@@ -20,10 +20,10 @@ import com.sly.plugin.common.utils.CommonUtils;
 import com.sly.plugin.ftp.factory.FTPClientHelper;
 
 @Controller
-@RequestMapping("/demo")
-public class DemoController {
+@RequestMapping("/ftpDemo")
+public class FtpDemoController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DemoController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FtpDemoController.class);
 
 	@Autowired
 	private FTPClientHelper ftpClientHelper;

@@ -18,4 +18,9 @@ plugin:
     projectRoot: /
     connectTimeOut: 30000
     passiveMode: false
+  xss-filter:
+    exclude:
+      exclude-path:
+      - /ftpDemo/**
+      - /xssDemo/unFilter
   
