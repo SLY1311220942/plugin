@@ -23,7 +23,7 @@ public class FeignBeanUtils {
 	 * @time 2018年12月17日
 	 */
 	public static <T> T getBaseResultObject(String key, Class<T> clazz, BaseResult baseResult) {
-		String jsonString = JSON.toJSONString(baseResult.getValue(key));
+		String jsonString = JSON.toJSONString(baseResult.get(key));
 		T object = JSON.parseObject(jsonString, clazz);
 		return object;
 	};
@@ -54,7 +54,7 @@ public class FeignBeanUtils {
 	 * @time 2018年12月17日
 	 */
 	public static <T> List<T> getBaseResultArray(String key, Class<T> clazz, BaseResult baseResult) {
-		String jsonString = JSON.toJSONString(baseResult.getValue(key));
+		String jsonString = JSON.toJSONString(baseResult.get(key));
 		List<T> list = JSON.parseArray(jsonString, clazz);
 		return list;
 	};

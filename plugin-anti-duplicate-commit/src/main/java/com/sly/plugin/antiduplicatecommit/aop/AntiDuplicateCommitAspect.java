@@ -83,7 +83,7 @@ public class AntiDuplicateCommitAspect {
 				request.getSession().setAttribute(key, uuid);
 				request.setAttribute(key, uuid);
 				// 为返回结果设置token,便于ajax请求重新设置页面token
-				result.setValue(key, uuid);
+				result.put(key, uuid);
 			}
 		}
 
@@ -98,7 +98,7 @@ public class AntiDuplicateCommitAspect {
 				// ajax请求需要给返回结果设置新token
 				BaseResult originResult = (BaseResult) ret;
 				for (String key : keys) {
-					originResult.setValue(key, request.getSession().getAttribute(key));
+					originResult.put(key, request.getSession().getAttribute(key));
 				}
 				return originResult;
 			}

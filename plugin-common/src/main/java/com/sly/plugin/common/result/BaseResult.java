@@ -1,6 +1,5 @@
 package com.sly.plugin.common.result;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +11,11 @@ import java.util.Set;
  * @author sly
  * @time 2018年11月12日
  */
-public class BaseResult implements Serializable {
+public class BaseResult extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = -1937095802242495571L;
-
-	/** 数据map */
-	private Map<String, Object> dataMap = new HashMap<String, Object>(16);
+	
+	
 
 	/**
 	 * 空参构造方法
@@ -78,7 +76,7 @@ public class BaseResult implements Serializable {
 	public BaseResult(Integer status, String message, String key, Object value) {
 		setStatus(status);
 		setMessage(message);
-		setValue(key, value);
+		put(key, value);
 	}
 
 	/**
@@ -92,7 +90,7 @@ public class BaseResult implements Serializable {
 	public BaseResult(IStatus status, String key, Object value) {
 		setStatus(status.getStatus());
 		setMessage(status.getMessage());
-		setValue(key, value);
+		put(key, value);
 	}
 
 	/**
@@ -157,7 +155,7 @@ public class BaseResult implements Serializable {
 	 * @time 2018年11月12日
 	 */
 	public Integer getStatus() {
-		return (Integer) dataMap.get("status");
+		return (Integer) get("status");
 	}
 
 	/**
@@ -168,7 +166,7 @@ public class BaseResult implements Serializable {
 	 * @time 2018年11月12日
 	 */
 	public void setStatus(Integer status) {
-		dataMap.put("status", status);
+		put("status", status);
 	}
 
 	/**
@@ -179,7 +177,7 @@ public class BaseResult implements Serializable {
 	 * @time 2018年11月12日
 	 */
 	public String getMessage() {
-		return (String) dataMap.get("message");
+		return (String) get("message");
 	}
 
 	/**
@@ -190,7 +188,7 @@ public class BaseResult implements Serializable {
 	 * @time 2018年11月12日
 	 */
 	public void setMessage(String message) {
-		dataMap.put("message", message);
+		put("message", message);
 	}
 
 	/**
@@ -201,7 +199,7 @@ public class BaseResult implements Serializable {
 	 * @time 2018年11月12日
 	 */
 	public List<?> getRows() {
-		return (List<?>) dataMap.get("rows");
+		return (List<?>) get("rows");
 	}
 
 	/**
@@ -212,7 +210,7 @@ public class BaseResult implements Serializable {
 	 * @time 2018年11月12日
 	 */
 	public void setRows(List<?> rows) {
-		dataMap.put("rows", rows);
+		put("rows", rows);
 	}
 
 	/**
@@ -223,7 +221,7 @@ public class BaseResult implements Serializable {
 	 * @time 2018年11月12日
 	 */
 	public Integer getTotal() {
-		return (Integer) dataMap.get("total");
+		return (Integer) get("total");
 	}
 
 	/**
@@ -234,19 +232,10 @@ public class BaseResult implements Serializable {
 	 * @time 2018年11月12日
 	 */
 	public void setTotal(Integer total) {
-		dataMap.put("total", total);
+		put("total", total);
 	}
 
-	/**
-	 * 获取数据map
-	 * 
-	 * @return
-	 * @author sly
-	 * @time 2018年11月12日
-	 */
-	public Map<String, Object> getDataMap() {
-		return dataMap;
-	}
+	
 
 	/**
 	 * 设置数据map
@@ -258,31 +247,8 @@ public class BaseResult implements Serializable {
 	public void setDataMap(Map<String, Object> dataMap) {
 		Set<String> keySet = dataMap.keySet();
 		for (String key : keySet) {
-			this.dataMap.put(key, dataMap.get(key));
+			this.put(key, dataMap.get(key));
 		}
 	}
 
-	/**
-	 * 向数据map存放数据
-	 * 
-	 * @param key
-	 * @param value
-	 * @author sly
-	 * @time 2018年11月12日
-	 */
-	public void setValue(String key, Object value) {
-		dataMap.put(key, value);
-	}
-
-	/**
-	 * 从数据map取数据
-	 * 
-	 * @param key
-	 * @return
-	 * @author sly
-	 * @time 2018年12月13日
-	 */
-	public Object getValue(String key) {
-		return dataMap.get(key);
-	}
 }
