@@ -1,5 +1,6 @@
 package com.sly.plugin.ftp.properties;
 
+import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -10,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @time 2019年9月20日
  */
 @ConfigurationProperties(prefix = "plugin.ftp-pool")
-public class FtpPoolProperties extends GenericObjectPoolConfig {
+public class FtpPoolProperties extends GenericObjectPoolConfig<FTPClient> {
 	/** 主机名 */
 	private String host;
 	

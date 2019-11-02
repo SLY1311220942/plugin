@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 公共返回对象
  * 
@@ -14,8 +16,6 @@ import java.util.Set;
 public class BaseResult extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = -1937095802242495571L;
-	
-	
 
 	/**
 	 * 空参构造方法
@@ -235,8 +235,6 @@ public class BaseResult extends HashMap<String, Object> {
 		put("total", total);
 	}
 
-	
-
 	/**
 	 * 设置数据map
 	 * 
@@ -249,6 +247,46 @@ public class BaseResult extends HashMap<String, Object> {
 		for (String key : keySet) {
 			this.put(key, dataMap.get(key));
 		}
+	}
+
+	/**
+	 * 获取结果里的对象
+	 * 
+	 * @param key
+	 * @param clazz
+	 * @return
+	 * @author sly
+	 * @time 2019年11月2日
+	 */
+	public <T> T getResultObject(String key, Class<T> clazz) {
+		return JSON.parseObject(JSON.toJSONString(get(key)), clazz);
+
+	}
+
+	/**
+	 * 获取结果里的list
+	 * 
+	 * @param key
+	 * @param clazz
+	 * @return
+	 * @author sly
+	 * @time 2019年11月2日
+	 */
+	public <T> List<T> getResultArray(String key, Class<T> clazz) {
+		return JSON.parseArray(JSON.toJSONString(get(key)), clazz);
+	}
+	
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 * @author sly
+	 * @time 2019年11月2日
+	 */
+	public BaseResult append(String key, Object value) {
+		put(key, value);
+		return this;
 	}
 
 }
