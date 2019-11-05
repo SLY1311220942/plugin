@@ -9,4 +9,15 @@
 	</parent>
 	<artifactId>plugin-urf-parent</artifactId>
 	<packaging>pom</packaging>
+	
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.sly</groupId>
+				<artifactId>plugin-urf-common</artifactId>
+				<version>${plugin.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
