@@ -2,4 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sly.plugin.urf.mapper.UserMapper">
 
+	<!-- 新增 -->
+	<insert id="add" parameterType="com.sly.plugin.urf.model.User">
+		INSERT INTO `T_PLG_USER` (`id`,`username`,`password`,`nickname`,`realname`,`phone`,`tel`,`email`,`gender`,
+			`createTime`,`updateTime`,`tag`,`status`,`logicDel`,`remark`,`projectKZ1`,`projectKZ2`,`projectKZ3`) 
+		VALUES (#{id},#{username},#{password},#{nickname},#{realname},#{phone},#{tel},#{email},#{gender},#{createTime},
+			#{updateTime},#{tag},#{status},#{logicDel},#{remark},#{projectKZ1},#{projectKZ2},#{projectKZ3})
+	</insert>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM `T_PLG_USER` WHERE `id`=#{id}
+	</delete>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.sly.plugin.urf.model.User">
+		UPDATE `T_PLG_USER` TPU
+		<set>
+			<if test="username != null and username != ''">
+				TPU.`username` = #{username},
+			</if>
+			<if test="password != null and password != ''">
+				TPU.`password` = #{password},
+			</if>
+			<if test="nickname != null and nickname != ''">
+				TPU.`nickname` = #{nickname},
+			</if>
+			<if test="realname != null and realname != ''">
+				TPU.`realname` = #{realname},
+			</if>
+			<if test="phone != null">
+				TPU.`phone` = #{phone},
+			</if>
+			<if test="tel != null">
+				TPU.`tel` = #{tel},
+			</if>
+			<if test="email != null">
+				TPU.`email` = #{email},
+			</if>
+			<if test="gender != null">
+				TPU.`gender` = #{gender},
+			</if>
+			<if test="tag != null">
+				TPU.`tag` = #{tag},
+			</if>
+			<if test="status != null">
+				TPU.`status` = #{status},
+			</if>
+			<if test="remark != null">
+				TPU.`remark` = #{remark},
+			</if>
+			<if test="projectKZ1 != null">
+				TPU.`projectKZ1` = #{projectKZ1},
+			</if>
+			<if test="projectKZ2 != null">
+				TPU.`projectKZ2` = #{projectKZ2},
+			</if>
+			<if test="projectKZ3 != null">
+				TPU.`projectKZ3` = #{projectKZ3},
+			</if>
+		</set>
+		WHERE TPU.`id`=#{id}
+	</update>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" parameterType="java.lang.String">
+		SELECT * FROM `T_PLG_USER` TPU WHERE TPU.`id`=#{id}
+	</select>
 </mapper>

@@ -1,5 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sly.plugin.urf.mapper.FuncMapper">
-	
+
+	<!-- 新增 -->
+	<insert id="add" parameterType="com.sly.plugin.urf.model.Func">
+		INSERT INTO `T_PLG_FUNC`(`id`,`userId`,`funcName`,`funcIcon`,`funcUrl`,`funcTag`,`funcType`,`parentId`,
+			`createTime`,`updateTime`,`funcSort`,`isOpen`,`logicDel`,`remark`,`projectKZ1`,`projectKZ2`,`projectKZ3`) 
+		VALUES(#{id},#{userId},#{funcName},#{funcIcon},#{funcUrl},#{funcTag},#{funcType},#{parentId},#{createTime},
+			#{updateTime},#{funcSort},#{isOpen},#{logicDel},#{remark},#{projectKZ1},#{projectKZ2},#{projectKZ3})
+	</insert>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM `T_PLG_FUNC` WHERE `id`=#{id}
+	</delete>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="com.sly.plugin.urf.model.Func">
+		UPDATE `T_PLG_FUNC` TPF
+		<set>
+			<if test="funcName != null and funcName != ''">
+				TPF.`funcName` = #{funcName},
+			</if>
+			<if test="funcIcon != null">
+				TPF.`funcIcon` = #{funcIcon},
+			</if>
+			<if test="funcUrl != null">
+				TPF.`funcUrl` = #{funcUrl},
+			</if>
+			<if test="funcTag != null">
+				TPF.`funcTag` = #{funcTag},
+			</if>
+			<if test="funcType != null">
+				TPF.`funcType` = #{funcType},
+			</if>
+			<if test="updateTime != null and updateTime != ''">
+				TPF.`updateTime` = #{updateTime},
+			</if>
+			<if test="funcSort != null">
+				TPF.`funcSort` = #{funcSort},
+			</if>
+			<if test="isOpen != null">
+				TPF.`isOpen` = #{isOpen},
+			</if>
+			<if test="remark != null">
+				TPF.`remark` = #{remark},
+			</if>
+			<if test="projectKZ1 != null">
+				TPF.`projectKZ1` = #{projectKZ1},
+			</if>
+			<if test="projectKZ2 != null">
+				TPF.`projectKZ2` = #{projectKZ2},
+			</if>
+			<if test="projectKZ3 != null">
+				TPF.`projectKZ3` = #{projectKZ3},
+			</if>
+		</set>
+		WHERE id=#{id}
+	</update>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" parameterType="java.lang.String" resultType="com.sly.plugin.urf.model.Func">
+		SELECT * FROM `T_PLG_FUNC` TPF WHERE TPF.`id`=#{id}
+	</select>
 </mapper>

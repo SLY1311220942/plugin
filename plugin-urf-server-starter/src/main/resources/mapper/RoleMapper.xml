@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sly.plugin.urf.mapper.RoleMapper">
+	
+	<!-- 新增 -->
+	<insert id="add" parameterType="com.sly.plugin.urf.model.Role">
+		INSERT INTO `T_PLG_ROLE` (`id`,`userId`,`roleName`,`createTime`,`updateTime`,`isOpen`,`logicDel`,`remark`,`projectKZ1`,`projectKZ2`,`projectKZ3`) 
+		VALUES (#{id},#{userId},#{roleName},#{createTime},#{updateTime},#{isOpen},#{logicDel},#{remark},#{projectKZ1},#{projectKZ2},#{projectKZ3})
+	</insert>
 
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM `T_PLG_ROLE` WHERE `id`=#{id}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="update" parameterType="com.sly.plugin.urf.model.Role">
+		UPDATE `T_PLG_ROLE` TPR
+		<set>
+			<if test="roleName != null and roleName != ''">
+				TPR.`roleName` = #{roleName},
+			</if>
+			<if test="updateTime != null and updateTime ! =''">
+				TPR.`updateTime` = #{updateTime},
+			</if>
+			<if test="isOpen != null">
+				TPR.`isOpen` = #{isOpen},
+			</if>
+			<if test="remark != null and remark != ''">
+				TPR.`remark` = #{remark},
+			</if>
+			<if test="projectKZ1 != null">
+				TPR.`projectKZ1` = #{projectKZ1},
+			</if>
+			<if test="projectKZ2 != null">
+				TPR.`projectKZ2` = #{projectKZ2},
+			</if>
+			<if test="projectKZ3 != null">
+				TPR.`projectKZ3` = #{projectKZ3},
+			</if>
+		</set>
+		WHERE TPR.`id`=#{id}
+	</update>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" parameterType="java.lang.String" resultType="com.sly.plugin.urf.model.Role">
+		SELECT * FROM `T_PLG_ROLE` TPR WHERE TPR.`id`=#{id}
+	</select>
 </mapper>
