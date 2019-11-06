@@ -98,5 +98,6 @@
 		<module>../plugin-xss-filter</module>
 		<module>../plugin-xss-filter-starter</module>
 		<module>../plugin-redis</module>
+		<module>../plugin-urf-parent</module>
 	</modules>
 </project>

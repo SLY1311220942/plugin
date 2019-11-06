@@ -6,6 +6,7 @@
 		<groupId>com.sly</groupId>
 		<artifactId>plugin-urf-parent</artifactId>
 		<version>1.0</version>
+		<!-- <relativePath>../plugin-urf-parent/pom.xml</relativePath> -->
 	</parent>
 	<artifactId>plugin-urf-common</artifactId>
 
