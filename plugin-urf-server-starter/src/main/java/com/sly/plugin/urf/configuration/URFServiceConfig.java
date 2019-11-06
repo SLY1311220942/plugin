@@ -13,6 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @MapperScan("com.sly.plugin.urf.mapper")
 @ComponentScan("com.sly.plugin.urf.service.impl")
-public class UrfServiceConfig {
+public class URFServiceConfig {
 	
 }

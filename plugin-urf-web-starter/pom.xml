@@ -6,10 +6,8 @@
 		<groupId>com.sly</groupId>
 		<artifactId>plugin-urf-parent</artifactId>
 		<version>1.0</version>
-		<!-- <relativePath>../plugin-urf-parent/pom.xml</relativePath> -->
 	</parent>
-
-	<artifactId>plugin-urf-server-starter</artifactId>
+	<artifactId>plugin-urf-web-starter</artifactId>
 
 	<dependencies>
 		<dependency>
@@ -21,12 +19,15 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.0.1</version>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
