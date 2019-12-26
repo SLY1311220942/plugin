@@ -146,6 +146,20 @@ public class BaseResult extends HashMap<String, Object> {
 		setTotal(total);
 		setRows(rows);
 	}
+	
+	/**
+	 * 构造方法
+	 * 
+	 * @param status
+	 * @param total
+	 * @param rows
+	 */
+	public BaseResult(IStatus status, Long total, List<?> rows) {
+		setStatus(status.getStatus());
+		setMessage(status.getMessage());
+		setTotal(total.intValue());
+		setRows(rows);
+	}
 
 	/**
 	 * 获取返回状态
