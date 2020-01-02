@@ -14,9 +14,6 @@ import com.sly.plugin.validate.constraints.Regex.List;
 
 /**
  * 正则验证
- * <p>
- * 支持类型是:{@code String}
- * </p>
  * 
  * @author sly
  * @time 2019年6月26日

@@ -28,10 +28,7 @@ public class RegexResolve {
 		Regex annotation = (Regex) annotations;
 		String regexp = annotation.regexp();
 		if(parameterValue != null) {
-			if(!(parameterValue instanceof String)) {
-				throw new RuntimeException("不支持类型异常：@Regex注解只支持String类型的参数和字段");
-			}
-			
+			parameterValue = String.valueOf(parameterValue);
 			if (!((String) parameterValue).matches(regexp)) {
 				return new BaseResult(ResultStatus.FAILED, annotation.message());
 			}
